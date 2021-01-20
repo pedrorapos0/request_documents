@@ -4,6 +4,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 import Document from './Document';
@@ -14,9 +17,12 @@ class RequestDocumentData {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  document: Document;
+  @OneToOne(() => Document)
+  @JoinColumn()
+  document_id: Document;
 
-  requestDocument: RequestDocuments;
+  @OneToMany(() => RequestDocuments, requestDocument => requestDocument.request)
+  requestDocument_id: RequestDocuments;
 
   @Column('timestamp with time zone')
   dateRequestDocument: Date;

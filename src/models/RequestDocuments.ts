@@ -1,10 +1,12 @@
-import { request } from 'express';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToOne,
+  OneToMany,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 
 import RequestDocumentData from './RequestDocumentData';
@@ -15,8 +17,12 @@ class RequestDocuments {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @OneToMany(() => RequestDocumentData, request => request.requestDocument_id)
+  @JoinColumn({ name: 'requestDocument_id' })
   request: RequestDocumentData[];
 
+  @OneToOne(() => User, { eager: true })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column()
