@@ -4,9 +4,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToOne,
-  OneToMany,
   JoinColumn,
+  ManyToOne,
+  OneToOne,
 } from 'typeorm';
 
 import Document from './Document';
@@ -17,17 +17,21 @@ class RequestDocumentData {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Document)
-  @JoinColumn()
-  document_id: Document;
+  @OneToOne(() => Document, { eager: true })
+  @JoinColumn({ name: 'document_id' })
+  document: Document;
 
-  @OneToMany(() => RequestDocuments, requestDocument => requestDocument.request)
-  requestDocument_id: RequestDocuments;
+  @ManyToOne(
+    () => RequestDocuments,
+    requestDocument => requestDocument.requestDocumentData,
+  )
+  @JoinColumn({ name: 'requestDocument_id' })
+  requestDocument: RequestDocuments;
 
-  @Column('timestamp with time zone')
+  @Column('timestamp with time zone', { name: 'date_request_document' })
   dateRequestDocument: Date;
 
-  @Column('timestamp with time zone')
+  @Column('timestamp with time zone', { name: 'date_devolution_document' })
   dateDevolutionDocument: Date;
 
   @Column('timestamp with time zone')

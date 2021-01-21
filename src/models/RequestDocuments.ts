@@ -3,9 +3,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToOne,
   OneToMany,
   UpdateDateColumn,
+  OneToOne,
   JoinColumn,
 } from 'typeorm';
 
@@ -17,9 +17,12 @@ class RequestDocuments {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => RequestDocumentData, request => request.requestDocument_id)
-  @JoinColumn({ name: 'requestDocument_id' })
-  request: RequestDocumentData[];
+  @OneToMany(
+    () => RequestDocumentData,
+    requestDocumentData => requestDocumentData.requestDocument,
+    { eager: true },
+  )
+  requestDocumentData: RequestDocumentData[];
 
   @OneToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })

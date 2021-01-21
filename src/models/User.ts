@@ -20,9 +20,6 @@ class User {
   @Column()
   departament: string;
 
-  @Column('timestamp with time zone')
-  deleted_at: Date;
-
   @CreateDateColumn()
   created_at: Date;
 

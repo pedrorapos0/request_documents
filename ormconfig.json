@@ -5,6 +5,7 @@
   "username": "postgres",
   "password": "docker",
   "database": "request_documents",
+  "logging": ["query", "error"],
   "entities": [
     "./src/models/*.ts"
   ],
