@@ -24,6 +24,7 @@
     ],
     "rules": {
       "class-methods-use-this": "off",
+      "no-restricted-syntax":"off",
       "camelcase": "off",
       "import/extensions": [
         "error",
