@@ -1,12 +1,12 @@
-import { promises } from 'fs';
 import { getRepository } from 'typeorm';
 import { addDays } from 'date-fns';
 
 import RequestDocumentData from '../models/RequestDocumentData';
 import Document from '../models/Document';
+import CreateDocumentService from './CreateDocumentService';
 
 interface RequestData {
-  document: Document;
+  document: Omit<Document, 'created_at' | 'updated_at' | 'id'>;
 }
 
 class RequestDocumentServices {
@@ -16,8 +16,14 @@ class RequestDocumentServices {
     const dateRequestDocument = new Date();
     const dateDevolutionDocument = addDays(new Date(), 2);
     const requestDocumentRepository = getRepository(RequestDocumentData);
+    const { detail, protocol, documentType } = document;
+    const newDocument = await new CreateDocumentService().execute({
+      detail,
+      documentType,
+      protocol,
+    });
     const requestDocument = requestDocumentRepository.create({
-      document,
+      document: newDocument,
       dateDevolutionDocument,
       dateRequestDocument,
     });
