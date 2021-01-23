@@ -14,7 +14,7 @@ class RequestDocumentServices {
     document,
   }: RequestData): Promise<RequestDocumentData> {
     const dateRequestDocument = new Date();
-    const dateDevolutionDocument = undefined;
+    const dateDevolutionDocument = addDays(new Date(), 2);
     const requestDocumentRepository = getRepository(RequestDocumentData);
     const { detail, protocol, documentType } = document;
     const newDocument = await new CreateDocumentService().execute({
