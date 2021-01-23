@@ -32,7 +32,7 @@ class RequestDocumentData {
   dateRequestDocument: Date;
 
   @Column('timestamp with time zone', { name: 'date_devolution_document' })
-  dateDevolutionDocument: Date;
+  dateDevolutionDocument: Date | null;
 
   @Column('timestamp with time zone')
   deleted_at: Date;
