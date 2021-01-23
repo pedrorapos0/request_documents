@@ -23,6 +23,7 @@ export default class createRequestDocumentData1611136022791
           {
             name: 'date_devolution_document',
             type: 'timestamp',
+            isNullable: true,
           },
 
           {
