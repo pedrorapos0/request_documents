@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { getRepository, Not } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { validate } from 'uuid';
 
 import RequestDocuments from '../models/RequestDocuments';
@@ -25,11 +25,11 @@ requestProcessRoutes.post('/', async (request: Request, response: Response) => {
   return response.json(requestDocuments);
 });
 
-requestProcessRoutes.patch(
+requestProcessRoutes.put(
   '/:id',
   async (request: Request, response: Response) => {
     const { id } = request.params;
-    const { status } = request.body;
+    const { status, received } = request.body;
     const requestRepository = getRepository(RequestDocuments);
     if (!validate(id)) {
       return response.status(400).json({ mng: 'ID inválido!' });
@@ -38,8 +38,8 @@ requestProcessRoutes.patch(
     if (!requestExist) {
       return response.status(404).json({ mng: 'Requisição não existe!' });
     }
-    await requestRepository.update({ id }, { status });
-    return response.json({ status });
+    await requestRepository.update({ id }, { status, received });
+    return response.json({ status, received });
   },
 );
 

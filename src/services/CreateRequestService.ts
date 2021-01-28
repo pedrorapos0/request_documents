@@ -40,6 +40,7 @@ class CreateRequestService {
       status,
       requestDocumentData: handlerequestDocumentData,
       user: HandleUser,
+      received: false,
     });
     await requestRepository.save(request);
     return request;
