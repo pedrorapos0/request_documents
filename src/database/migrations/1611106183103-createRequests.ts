@@ -19,6 +19,11 @@ export default class createRequests1611106183103 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'received',
+            type: 'varchar',
+            default: false,
+          },
+          {
             name: 'deleted_at',
             type: 'timestamp',
             isNullable: true,

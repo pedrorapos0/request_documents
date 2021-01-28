@@ -31,6 +31,9 @@ class RequestDocuments {
   @Column()
   status: string;
 
+  @Column()
+  received: boolean;
+
   @Column('timestamp with time zone')
   deleted_at: Date;
 
